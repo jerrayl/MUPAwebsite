@@ -1,0 +1,7 @@
+# [START ndb_version]
+google-cloud-ndb
+# [END ndb_version]
+google-cloud-storage
+Flask
+jinja2
+google-auth
