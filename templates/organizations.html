@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include 'head.html' %}	
+</head>
+<body class="homepage">   
+	<header id="header">
+        {% include 'navbar.html' %}
+    </header><!--/header-->
+
+    <section id="portfolio">
+        <div class="container">
+            <div class="center">
+             <h2>Organizations for Volunteering</h2>
+             <p>
+                The following is a list of organizations that Psychology students may want to consider volunteering for or working with.
+            </p>
+             <div id="accordion">
+                {% for organization in organizations %}
+                <div class="card">
+                    <div class="card-header" id={{"heading" + loop.index|string}}>
+                    <div class = "row">
+                        <div class = "col-8">
+                      <h5 class="mb-0">
+                        <button class="btn btn-link collasped" data-toggle="collapse" data-target={{"#collaspe" + loop.index|string}} aria-expanded="false" aria-controls={{"collaspe" + loop.index|string}}>
+                          {{ organization[0] }}
+                        </button>
+                      </h5>
+                    </div>
+                    <div class = "col-4">
+                      <a class="btn btn-primary" href="{{ organization[2] }}" style="margin:0;">Website</a>
+                      </div>
+                    </div>
+                    </div>
+                
+                    <div id={{"collapse" + loop.index|string}} class="collaspe" aria-labelledby={{"heading" + loop.index|string}} data-parent="#accordion">
+                      <div class="card-body">
+                        {{ organization[1] }}
+                      </div>
+                    </div>
+                  </div>
+                {% endfor %}
+              </div>
+             </div>
+
+        <!--
+         <ul class="portfolio-filter text-center">
+            <li><a class="btn btn-default active" href="#" data-filter="*">All Works</a></li>
+            <li><a class="btn btn-default" href="#" data-filter=".bootstrap">Creative</a></li>
+            <li><a class="btn btn-default" href="#" data-filter=".html">Photography</a></li>
+            <li><a class="btn btn-default" href="#" data-filter=".wordpress">Web Development</a></li>
+        </ul>
+    -->
+
+    </div>
+</section><!--/#portfolio-item-->
+
+{% include 'navbar.html' %}		
+
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="/static/js/jquery.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/js/jquery.prettyPhoto.js"></script>
+    <script src="/static/js/jquery.isotope.min.js"></script>   
+    <script src="/static/js/wow.min.js"></script>
+    <script src="/static/js/main.js"></script>
+</body>
+</html>

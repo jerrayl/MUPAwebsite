@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include 'head.html' %}	
+</head>
+<body class="homepage">   
+	<header id="header">
+        {% include 'navbar.html' %}
+    </header><!--/header-->
+
+    <section id="portfolio">
+        <div class="container">
+            <div class="center">
+
+            {% if submitted == "True" %}
+             <h2>Request Sucessfully Submitted</h2>
+             {% else %}
+            <img class="media-object" src="/static/images/Locker.png" alt="Locker Poster" style="width:50vh;">
+             <h2>Lockers</h2>
+             <p style="text-align: left;">
+                Lockers are free to lease, and available to students taking psychology courses. We will assign lockers in person at three timeslots each week, 11am on Monday, Wednesday and Friday. Please select your preferred timeslot and we'll be in contact shortly to confirm the appointment. Please note that we need at least 24 hr notice for assigning a locker, and if you book a timeslot less than 24h away, it will be for the following week. Please come prepared with your own lock.<br><br><br>
+            </p>
+             <h3>Terms and Conditions:</h3>
+             <p style="text-align: left;">
+                1.  MUPA Locker hire is available on levels 7 and 10 of Redmond Barry at the University of Melbourne.<br><br>
+                2.  Locker hire is only available to current students enrolled in courses offered by the school of psychological sciences.<br><br>
+                3.  The Locker lease period in 2019 pertains to one semester of the academic year of the University of Melbourne beginning (25/07/2019 to 19/12/2019). The lessee must remove all contents by 5pm on Friday, 01/11/2019.<br><br>
+                4.  After the lease period, any locker that remains locked will be forcibly opened and any contents will be disposed of. No compensation for loss of contents or damage to lock by the forcible removal of the lock or the contents of the locker will be provided after the lease period ceases.<br><br>
+                5.  Neither MUPA nor the School of Psychological Sciences hold any responsibility for the loss or damage of property held within the lockers during rental period.<br><br>
+                6.  It is the locker lessee’s responsibility for the safety and protection of all property held in lockers. It is in the lessee’s decision to use a lock to safe-guard properties within the locker. If the lessee uses a lock on the locker, it must feature a shackle with a diameter of 6mm – 7mm. Locks with shackles of a larger or smaller diameter may be ineffective. MUPA is not responsible for items lost or damaged as a result of ineffective locks.<br><br>
+                7.  Contents stored in the locker are for educational purposes only. Students must never store any dangerous goods, hazardous chemicals, (including paints and aerosols) and/or any illegal item (weapons, illicit drugs, etc.) in lockers.<br><br>
+                8.  If the Faculty of Medicine, Dentistry and Health Sciences has reasonable concerns regarding the locker contents or misuse of the locker, the Faculty has the right to forcibly enter the locker through whatever means and will not refund costs regarding damages for implementing this action.<br><br>
+                9.  Lockers found to be used, which have not been hired through MUPA, will be forcibly opened and have their contents removed without refund regarding damages for implementing this action.<br><br>
+                10. The lessee is liable for the repair costs of all internal and external damage to the locker. The lessee agrees not to put stickers on the surface of the locker or fix anything on the outside or inside of the locker. Lockers are all individually numbered for identification and allocation purposes. By leasing a locker, the lessee understands, agrees and is bound by the Terms and Conditions as stated above.
+            </p>
+             </div>
+             <div class="container">
+            <div class="center">
+             <h2>Registration</h2>
+                <form method="post" id="form"> 
+                    <div class="row" style="margin-bottom: 1.2em;">
+                        <div class="col-md-4">
+                            <label>Name</label>
+                            <input type="text" name="name" id="name" required></input>
+                        </div>
+                        <div class="col-md-4">
+                            <label>Student ID</label>
+                            <input type="number" name="id" id="id" step=1 min="0" required></input>
+                        </div>
+                        <div class="col-md-4">
+                            <label>Student Email</label>
+                            <input type="email" name="email" id="email" required></input>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-bottom: 1.2em;">
+                        <div class="col-md-4">
+                            <label>Mobile Number</label>
+                            <input type="number" name="phone" id="phone" step=1 min="0" required></input>
+                        </div>
+                        <div class="col-md-4">
+                            <label>Course</label>
+                            <input type="text" name="course" id="course" required></input>
+                        </div>
+                        <div class="col-md-4">
+                            <label style="display:block;margin-bottom: 0;">Degree</label>
+                            <div class="btn-group" data-toggle="buttons">
+                                    <label class="btn btn-primary">
+                                        <input type="radio" name="degree" value="Undergrad" required/> Undergrad
+                                    </label>
+                                    <label class="btn btn-primary">
+                                        <input type="radio" name="degree" value="Postgrad"/> Postgrad
+                                    </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-bottom: 1.2em;">
+                        <div class="col-md-4">
+                            <label style="display:block;margin-bottom: 0;">Locker Preference</label>
+                            <div class="btn-group" data-toggle="buttons">
+                                    <label class="btn btn-primary">
+                                        <input type="radio" name="floor" value="7th Floor" required/> 7th Floor
+                                    </label>
+                                    <label class="btn btn-primary">
+                                        <input type="radio" name="floor" value="10th Floor"/> 10th Floor
+                                    </label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label style="display:block;margin-bottom: 0;">Locker Assignment Timeslot (11 am)</label>
+                            <div class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-primary">
+                                <input type="radio" name="day" value="Monday" required/> Monday
+                            </label>
+                            <label class="btn btn-primary">
+                                <input type="radio" name="day" value="Wednesday"/> Wednesday
+                            </label>
+                            <label class="btn btn-primary">
+                                <input type="radio" name="day" value="Friday"/> Friday
+                            </label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label style="display:block;margin-bottom: 0;">I have read, and agree to the terms and conditions</label>
+                            <input class="form-check-input" type="checkbox" required/>
+                        </div>
+                    </div>
+                    <button type="submit" style="width:40%;" class="btn btn-primary btn-large" id="btnSubmit" form="form">Request Locker</button>
+                </form>
+            {% endif %}
+             </div>
+        <!--
+         <ul class="portfolio-filter text-center">
+            <li><a class="btn btn-default active" href="#" data-filter="*">All Works</a></li>
+            <li><a class="btn btn-default" href="#" data-filter=".bootstrap">Creative</a></li>
+            <li><a class="btn btn-default" href="#" data-filter=".html">Photography</a></li>
+            <li><a class="btn btn-default" href="#" data-filter=".wordpress">Web Development</a></li>
+        </ul>
+    -->
+
+    </div>
+</section><!--/#portfolio-item-->
+
+{% include 'navbar.html' %}		
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="/static/js/jquery.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/js/jquery.prettyPhoto.js"></script>
+    <script src="/static/js/jquery.isotope.min.js"></script>   
+    <script src="/static/js/wow.min.js"></script>
+    <script src="/static/js/main.js"></script>
+    <script>
+    $(document).ready(function () {
+
+        $("#form").submit(function (e) {
+            $("#btnSubmit").attr("disabled", true);
+            return true;
+        });
+    });
+    </script>
+</body>
+</html>

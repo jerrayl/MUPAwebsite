@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include 'head.html' %}	
+</head>
+<body class="homepage">   
+	<header id="header">
+        <nav class="navbar navbar-fixed-top" role="banner">
+            <div class="container">
+                <a class="navbar-brand" href="/"><img src="/static/images/Psychology-Association.png" style="height: 100%;"></a>
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+
+                <div class="collapse navbar-collapse navbar-right">
+                    <ul class="nav navbar-nav">
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/committee">Committee</a></li>
+                        <li><a href="/events">Events</a></li>
+                        <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Information</a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item nav-a" href="/information/course">Course Outline<br></a>
+                            <a class="dropdown-item nav-a" href="/information/organizations">Volunteer Organizations<br></a>
+                            <a class="dropdown-item nav-a" href="/information/lockers">Lockers</a>
+                            </div>
+                        </li>
+                        <li><a href="/contact">Contact</a></li>                        
+                    </ul>
+                </div>
+            </div><!--/.container-->
+        </nav><!--/nav-->
+
+    </header><!--/header-->
+
+    <section id="portfolio">
+        <div class="container">
+            <div class="center">
+             <h2>Admin</h2>
+             {% if status == "A" %}
+             <select style="width:20%;float:left;" id="display">
+                <option value="both" selected>Both</option>
+                <option value="unassigned">Unassigned</option>
+                <option value="assigned">Assigned</option>
+            </select>
+            <button style="width:20%;float:right;" class="btn btn-primary btn-large" onclick="window.location.href='{{ url }}'">Logout</button>
+             <table class="table" id="unassigned">
+                <tr>
+                    <th>Name</th>
+                    <th>Student ID</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Course</th>
+                    <th>Degree</th>
+                    <th>Floor Preference</th>
+                    <th>Day</th>
+                    <th>Assign</th>
+                </tr>
+                {% for student in students %}
+                    {% if student.assigned == False %}
+                    <tr>
+                    <td>{{student.name}}</td>
+                    <td>{{student.studentid}}</td>
+                    <td>{{student.email}}</td>
+                    <td>{{student.phone}}</td>
+                    <td>{{student.course}}</td>
+                    <td>{{student.degree}}</td>
+                    <td>{{student.locker_floor}}</td>
+                    <td>{{student.day}}</td>
+                    
+                    <td>
+                        <form method="post" id="{{student.studentid}}"> 
+                            <input type="hidden" name="student_id" value="{{student.studentid}}" id="student_id"></input>
+                            <input type="text" name="locker_number" style="width: 40%; font-size: 90%;margin-bottom: 0;" id="locker_number" required></input>
+                            <button type="submit" style="width: 40%;float:right;margin-top: 0;text-align: center;padding-left: 15px;" class="btn btn-primary btn-large" form="{{student.studentid}}">Assign Locker</button></form>
+                    </td>
+                    </tr>
+                    {% endif %}
+                {% endfor %}
+                </table>
+                <table class="table" id="assigned">
+                <tr>
+                    <th>Name</th>
+                    <th>Student ID</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Course</th>
+                    <th>Degree</th>
+                    <th>Locker Number</th>
+                </tr>
+                {% for student in students %}
+                     {% if student.assigned == True %}
+                    <tr>
+                    <td>{{student.name}}</td>
+                    <td>{{student.studentid}}</td>
+                    <td>{{student.email}}</td>
+                    <td>{{student.phone}}</td>
+                    <td>{{student.course}}</td>
+                    <td>{{student.course}}</td>
+                    <td>{{student.locker_number}}</td>
+                    </tr>
+                    {% endif %}
+                {% endfor %}
+                </table>
+                {% elif status == "NA" %}
+                <h3>You have to be an adminstrator to access this page</h3>
+                <button style="width:20%;" class="btn btn-primary btn-large" onclick="window.location.href='{{ url }}'">Logout</button>
+                {% else %}
+                <h3>Please log in to use the admin page</h3>
+                <button style="width:20%;" class="btn btn-primary btn-large" onclick="window.location.href='{{ url }}'">Login</button>
+                {% endif %}
+             </div>
+
+        <!--
+         <ul class="portfolio-filter text-center">
+            <li><a class="btn btn-default active" href="#" data-filter="*">All Works</a></li>
+            <li><a class="btn btn-default" href="#" data-filter=".bootstrap">Creative</a></li>
+            <li><a class="btn btn-default" href="#" data-filter=".html">Photography</a></li>
+            <li><a class="btn btn-default" href="#" data-filter=".wordpress">Web Development</a></li>
+        </ul>
+    -->
+
+    </div>
+</section><!--/#portfolio-item-->
+
+{% include 'navbar.html' %}		
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="/static/js/jquery.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/js/jquery.prettyPhoto.js"></script>
+    <script src="/static/js/jquery.isotope.min.js"></script>   
+    <script src="/static/js/wow.min.js"></script>
+    <script src="/static/js/main.js"></script>
+    <script>
+        $(document).ready(function() {
+            $("#display").change(function() {
+                var val = $(this).val();
+                if (val=="unassigned"){
+                    $("#assigned").hide();
+                    $("#unassigned").show();
+                }
+                else if (val=="assigned"){
+                    $("#assigned").show();
+                    $("#unassigned").hide();
+                }
+                else{
+                    $("#assigned").show();
+                    $("#unassigned").show();
+                }
+            })
+        });
+
+    </script>
+</body>
+</html>
